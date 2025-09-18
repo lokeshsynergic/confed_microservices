@@ -1,4 +1,8 @@
 {
   "extends": "./tsconfig.json",
+  "include": [
+    "apps/**/*",   // ✅ make sure apps are compiled
+    "libs/**/*"    // ✅ ensure libs (your entities) are compiled
+  ],
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }

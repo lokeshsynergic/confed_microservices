@@ -10,7 +10,7 @@ export class ApiGatewayController {
     var route = '';
     var replyTopic = '';
     const endpoint = body.endpoint;
-    const payload = body.payload;
+    const payload = body.payload.data;
     if(endpoint =='auth'){
        route = 'auth-events';
        replyTopic = 'auth-service-response';

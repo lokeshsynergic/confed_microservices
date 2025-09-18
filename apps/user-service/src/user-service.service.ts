@@ -2,7 +2,7 @@ import { Injectable,OnModuleInit } from '@nestjs/common';
 import { Kafka, Consumer, Producer } from 'kafkajs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User } from '../../../libs/entities/user.entity';
 
 @Injectable()
 export class UserServiceService implements OnModuleInit {
@@ -51,7 +51,7 @@ export class UserServiceService implements OnModuleInit {
           }
         } catch (err: any) {
           response = {
-            status: 'failed',
+            status: 'failedtch',
             errorCode: 3,
             message: `Processing error: ${err.message}`,
             data: null,

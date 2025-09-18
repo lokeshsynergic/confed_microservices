@@ -1,20 +1,21 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserServiceController } from './user-service.controller';
 import { UserServiceService } from './user-service.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User } from '../../../libs/entities/user.entity';
+import { postgreConn } from '../../../db-connection';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'postgres',
-    database: 'confed',
-    entities: [User], // 👈 add all entities here
-    synchronize: false, // good for prod, use migrations
-  }),TypeOrmModule.forFeature([User])],
+  imports: [
+    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => postgreConn(config),
+    }),
+    TypeOrmModule.forFeature([User]), // needed to inject repository
+  ],
   controllers: [UserServiceController],
   providers: [UserServiceService],
 })
