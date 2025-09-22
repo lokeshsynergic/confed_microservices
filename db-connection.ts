@@ -1,7 +1,6 @@
-import { join } from 'path';
+//import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { User } from 'libs/entities/user.entity';
 
 export const postgreConn = (config: ConfigService): TypeOrmModuleOptions => {
   const isDev = process.env.NODE_ENV !== 'production';
